@@ -31,9 +31,7 @@ const Home = ({
             <li
               className={homeStyles.listItem}
               key={id}>
-              <Link href={`/posts/${id}`}>
-                <a>{title}</a>
-              </Link>
+              <Link href={`/posts/${id}`}>{title}</Link>
               <br />
               <small className={homeStyles.lightText}>{date}</small>
             </li>

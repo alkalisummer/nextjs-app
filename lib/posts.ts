@@ -1,8 +1,10 @@
 import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
+import { remark } from 'remark';
+import remarkHtml from 'remark-html';
 
-//node 명령을 호출한 현재 작업경로
+//node 명령을 호출한 현재 작업경로 + /posts
 const postsDirectory = path.join(process.cwd(), 'posts');
 
 export function getSortedPostsData() {
@@ -32,4 +34,32 @@ export function getSortedPostsData() {
       return -1;
     }
   });
+}
+
+export function getAllPostIds() {
+  // posts 폴더 안에 파일 이름 가져오기
+  const fileNames = fs.readdirSync(postsDirectory);
+  return fileNames.map((fileName) => {
+    return {
+      params: {
+        id: fileName.replace(/\.md$/, ''),
+      },
+    };
+  });
+}
+
+export async function getPostData(id: string) {
+  const fullPath = path.join(postsDirectory, `${id}.md`);
+  const fileContents = fs.readFileSync(fullPath, 'utf-8');
+
+  const matterResult = matter(fileContents);
+
+  //markdown 데이터 -> html 데이터로 변환
+  const processedContent = await remark().use(remarkHtml).process(matterResult.content);
+  const contentHtml = processedContent.toString();
+  return {
+    id,
+    contentHtml,
+    ...(matterResult.data as { date: string; title: string }),
+  };
 }
