@@ -4,7 +4,9 @@ import homeStyles from '../styles/Home.module.css';
 
 const inter = Inter({ subsets: ['latin'] });
 
-export default function Home() {
+function Home() {
+  console.log(process.cwd());
+  console.log(__dirname);
   return (
     <div>
       <Head>
@@ -21,3 +23,5 @@ export default function Home() {
     </div>
   );
 }
+
+export default Home;
