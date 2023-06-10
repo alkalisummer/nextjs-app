@@ -1,6 +1,6 @@
 import { getAllPostIds, getPostData } from '@/lib/posts';
 import { GetStaticPaths, GetStaticProps } from 'next';
-import homeStyles from '../../styles/Home.module.css';
+import postStyles from '../../styles/Post.module.css';
 import Head from 'next/head';
 import React from 'react';
 
@@ -14,13 +14,13 @@ function Post({
   };
 }) {
   return (
-    <div>
+    <div className={postStyles.container}>
       <Head>
         <title>{postData.title}</title>
       </Head>
       <article>
-        <h1 className={homeStyles.headingXl}>{postData.title}</h1>
-        <div>{postData.date}</div>
+        <h1 className={postStyles.headingXl}>{postData.title}</h1>
+        <div className={postStyles.lightText}>{postData.date}</div>
         <div dangerouslySetInnerHTML={{ __html: postData.contentHtml }}></div>
       </article>
     </div>

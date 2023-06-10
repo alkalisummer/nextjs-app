@@ -13,10 +13,8 @@ const Home = ({
     id: string;
   }[];
 }) => {
-  console.log(process.cwd());
-  console.log(__dirname);
   return (
-    <div>
+    <div className={homeStyles.container}>
       <Head>
         <title>Simple Blog</title>
       </Head>
